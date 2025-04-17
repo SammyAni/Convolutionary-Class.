@@ -1,11 +1,13 @@
 # Convolutionary-Class.
-..kaggle course : Project exercise
-# Setup feedback system
+#..kaggle course : Project exercise analysis
+# This code sets up a feedback system for a computer vision task, specifically for classifying images of cars and trucks
+
+## Setup feedback system
 from learntools.core import binder
 binder.bind(globals())
 from learntools.computer_vision.ex1 import *
 
-# Imports
+## Imports
 import os, warnings
 import matplotlib.pyplot as plt
 from matplotlib import gridspec
@@ -15,6 +17,8 @@ import tensorflow as tf
 from tensorflow.keras.preprocessing import image_dataset_from_directory
 
 # Reproducability
+## A reproducibility function (set_seed) is defined to ensure that the results are consistent across different runs by setting random seeds
+
 def set_seed(seed=31415):
     np.random.seed(seed)
     tf.random.set_seed(seed)
@@ -22,7 +26,9 @@ def set_seed(seed=31415):
     os.environ['TF_DETERMINISTIC_OPS'] = '1'
 set_seed()
 
+
 # Set Matplotlib defaults
+##Default settings for Matplotlib are configured to enhance the visual appearance of plots.
 plt.rc('figure', autolayout=True)
 plt.rc('axes', labelweight='bold', labelsize='large',
        titleweight='bold', titlesize=18, titlepad=10)
@@ -31,6 +37,7 @@ warnings.filterwarnings("ignore") # to clean up output cells
 
 
 # Load training and validation sets
+##The datasets are set to shuffle during training but not during validation
 ds_train_ = image_dataset_from_directory(
     '../input/car-or-truck/train',
     labels='inferred',
@@ -50,7 +57,7 @@ ds_valid_ = image_dataset_from_directory(
     shuffle=False,
 )
 
-# Data Pipeline
+## Data Pipeline
 def convert_to_float(image, label):
     image = tf.image.convert_image_dtype(image, dtype=tf.float32)
     return image, label
